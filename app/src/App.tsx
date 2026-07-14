@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright (c) 2026 openCCR contributors
 
+import { useState } from 'react';
 import { useCanvasState } from './hooks/useCanvasState';
 import { useFeatures } from './hooks/useFeatures';
 import { useWireDrag } from './hooks/useWireDrag';
@@ -9,8 +10,20 @@ import TopBar from './components/topbar/TopBar';
 import Canvas from './components/canvas/Canvas';
 import BOMPanel from './components/bom/BOMPanel';
 import FeaturesPanel from './components/features/FeaturesPanel';
+import CookieBanner from './components/ui/CookieBanner';
+
+const COOKIE_KEY = 'openccr.cookieConsent';
 
 export default function App() {
+  const [cookieConsent, setCookieConsent] = useState<boolean>(
+    () => localStorage.getItem(COOKIE_KEY) === 'accepted'
+  );
+
+  function handleAccept() {
+    localStorage.setItem(COOKIE_KEY, 'accepted');
+    setCookieConsent(true);
+  }
+
   const {
     state,
     addModule,
@@ -26,7 +39,9 @@ export default function App() {
   const { dragState, startDrag, updateCursor, cancelDrag } = useWireDrag();
 
   return (
-    <AppLayout
+    <>
+      {!cookieConsent && <CookieBanner onAccept={handleAccept} />}
+      <AppLayout
       topbar={<TopBar state={state} onImport={importState} />}
       canvas={
         <Canvas
@@ -47,5 +62,6 @@ export default function App() {
       features={<FeaturesPanel features={features} />}
       bom={<BOMPanel modules={state.modules} />}
     />
+    </>
   );
 }
