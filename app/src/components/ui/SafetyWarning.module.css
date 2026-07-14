@@ -1,0 +1,48 @@
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+/* Copyright (c) 2026 openCCR contributors */
+
+/**
+ * SafetyWarning Styles
+ *
+ * CONSTRAINT: This component is reserved exclusively for CCR safety-critical
+ * notices (PO₂ setpoints, alarm thresholds, calibration). Do not use for
+ * generic validation errors or decorative states.
+ */
+
+.wrapper {
+  background: rgba(192, 57, 43, 0.05);
+  border: 2px solid var(--color-warning);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-6);
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-warning);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.content {
+  flex: 1;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--text-base);
+  color: var(--color-warning);
+  margin-bottom: var(--space-2);
+  margin-top: 0;
+}
+
+.body {
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  line-height: 1.6;
+}

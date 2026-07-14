@@ -1,0 +1,39 @@
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+/* Copyright (c) 2026 openCCR contributors */
+
+.badge {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--text-xs);
+  padding: 2px var(--space-2);
+  border-radius: 100px;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* Color Variants */
+.navy {
+  background: var(--color-navy);
+  color: #ffffff;
+  border: none;
+}
+
+.ocean {
+  background: rgba(14, 107, 173, 0.1);
+  color: var(--color-ocean);
+  border: 1px solid rgba(14, 107, 173, 0.2);
+}
+
+.cyan {
+  background: rgba(36, 180, 216, 0.1);
+  color: #1a8fa8;
+  border: 1px solid rgba(36, 180, 216, 0.25);
+}
+
+/* WARNING VARIANT: Only for CCR safety-critical content (PO₂, alarm thresholds, calibration) */
+.warning {
+  background: rgba(192, 57, 43, 0.1);
+  color: var(--color-warning);
+  border: 1px solid rgba(192, 57, 43, 0.2);
+}
