@@ -1,49 +1,51 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright (c) 2026 openCCR contributors
 
-import Button from './components/ui/Button';
-import Card from './components/ui/Card';
-import Badge from './components/ui/Badge';
-import SafetyWarning from './components/ui/SafetyWarning';
-import SectionHeader from './components/ui/SectionHeader';
+import { useCanvasState } from './hooks/useCanvasState';
+import { useFeatures } from './hooks/useFeatures';
+import { useWireDrag } from './hooks/useWireDrag';
+import AppLayout from './components/layout/AppLayout';
+import TopBar from './components/topbar/TopBar';
+import Canvas from './components/canvas/Canvas';
+import BOMPanel from './components/bom/BOMPanel';
+import FeaturesPanel from './components/features/FeaturesPanel';
 
 export default function App() {
+  const {
+    state,
+    addModule,
+    moveModule,
+    removeModule,
+    addWire,
+    removeWire,
+    addMcuBusSlot,
+    removeMcuBusSlot,
+    importState,
+  } = useCanvasState();
+  const features = useFeatures(state);
+  const { dragState, startDrag, updateCursor, cancelDrag } = useWireDrag();
+
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1 style={{ color: 'var(--color-navy)', fontFamily: 'var(--font-heading)' }}>
-        openCCR Configurator
-      </h1>
-      <div style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-        <Button variant="primary">Primary</Button>
-        <Button variant="outline">Outline</Button>
-        <Button
-          variant="outline-light"
-          style={{ background: 'var(--color-navy)', padding: '0.5rem' }}
-        >
-          Outline Light
-        </Button>
-      </div>
-      <div style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem' }}>
-        <Badge variant="navy">Navy</Badge>
-        <Badge variant="ocean">Ocean</Badge>
-        <Badge variant="cyan">Cyan</Badge>
-      </div>
-      <div style={{ marginTop: '1rem', maxWidth: '400px' }}>
-        <Card title="Example Card">This is a placeholder card for the openCCR configurator.</Card>
-      </div>
-      <div style={{ marginTop: '1rem', maxWidth: '500px' }}>
-        <SafetyWarning title="Safety Notice">
-          This is a placeholder safety warning component — reserved for CCR safety-critical notices
-          only.
-        </SafetyWarning>
-      </div>
-      <div style={{ marginTop: '2rem' }}>
-        <SectionHeader
-          eyebrow="Getting Started"
-          title="Configure Your CCR"
-          subtitle="Select your device and configure parameters safely."
+    <AppLayout
+      topbar={<TopBar state={state} onImport={importState} />}
+      canvas={
+        <Canvas
+          state={state}
+          dragState={dragState}
+          onAddModule={addModule}
+          onMoveModule={moveModule}
+          onRemoveModule={removeModule}
+          onAddWire={addWire}
+          onRemoveWire={removeWire}
+          onStartDrag={startDrag}
+          onUpdateCursor={updateCursor}
+          onCancelDrag={cancelDrag}
+          onAddMcuBusSlot={addMcuBusSlot}
+          onRemoveMcuBusSlot={removeMcuBusSlot}
         />
-      </div>
-    </div>
+      }
+      features={<FeaturesPanel features={features} />}
+      bom={<BOMPanel modules={state.modules} />}
+    />
   );
 }

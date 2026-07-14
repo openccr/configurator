@@ -1,0 +1,60 @@
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+/* Copyright (c) 2026 openCCR contributors */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-navy);
+  color: var(--color-bg);
+  box-shadow: var(--shadow-md);
+  height: var(--nav-height);
+  box-sizing: border-box;
+}
+
+.wordmark {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: 400;
+  color: var(--color-bg);
+  letter-spacing: 0.01em;
+  margin-right: auto;
+}
+
+.wordmark strong {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.btn {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: var(--color-bg);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--color-cyan);
+  outline-offset: 2px;
+}
+
+.fileInput {
+  display: none;
+}
