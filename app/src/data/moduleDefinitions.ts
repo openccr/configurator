@@ -99,6 +99,7 @@ const solenoidIn = (): PortDef => ({
   busType: 'SOLENOID',
   direction: 'in',
   multiDrop: false,
+  rightSide: false,
 });
 
 // ── Module Definitions ────────────────────────────────────────────────────────
