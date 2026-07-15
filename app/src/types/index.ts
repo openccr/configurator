@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright (c) 2026 openCCR contributors
 
-export type BusType = 'I2C' | 'SPI' | 'UART' | 'NEOPIXEL' | 'MODBUS' | 'GPIO' | 'ADC';
+export type BusType = 'I2C' | 'SPI' | 'UART' | 'NEOPIXEL' | 'MODBUS' | 'GPIO' | 'ADC' | 'SOLENOID';
 export type PortDirection = 'in' | 'out' | 'bidir';
 
 export type ModuleType =
@@ -21,7 +21,10 @@ export type ModuleType =
   | 'ROTARY_ENCODER'
   | 'CO2_TEMP_STICK'
   | 'WATER_CONTACT'
-  | 'SOLENOID'
+  | 'SOLENOID_DRIVER_1PORT'
+  | 'SOLENOID_DRIVER_2PORT'
+  | 'SOLENOID_DRIVER_4PORT'
+  | 'SOLENOID_VALVE'
   | 'STATUS_LIGHT'
   | 'HUD_3LED'
   | 'HUD_6LED'
