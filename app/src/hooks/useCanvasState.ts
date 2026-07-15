@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright (c) 2026 openCCR contributors
 
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { nanoid } from 'nanoid';
 import useStorage from '../storage/useStorage';
 import { CanvasState, ModuleType, Wire, DEFAULT_MCU_BUS_SLOTS } from '../types';
@@ -45,6 +45,14 @@ export function useCanvasState() {
     const migrated = migrateCanvasState(state);
     return JSON.stringify(migrated) !== JSON.stringify(state) ? migrated : state;
   }, [state]);
+
+  // Persist migration back to storage so subsequent setState calls operate on current schema.
+  // Runs once when old data is detected; no-op thereafter.
+  useEffect(() => {
+    if (stateToUse !== state) {
+      setState(stateToUse);
+    }
+  }, [stateToUse, state, setState]);
 
   const addModule = useCallback(
     (type: ModuleType, x: number, y: number) => {
