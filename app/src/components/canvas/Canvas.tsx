@@ -240,7 +240,7 @@ export default function Canvas({
     if (srcPort.busType !== tgtPort.busType) return;
 
     // ── Peripheral-to-peripheral directional buses (NeoPixel chain / cell → reader) ──
-    const isP2PBus = srcPort.busType === 'NEOPIXEL' || srcPort.busType === 'ADC';
+    const isP2PBus = srcPort.busType === 'NEOPIXEL' || srcPort.busType === 'ADC' || srcPort.busType === 'SOLENOID';
     if (isP2PBus && !srcIsMcu && !tgtIsMcu) {
       const dirOk =
         (srcPort.direction === 'out' && tgtPort.direction === 'in') ||

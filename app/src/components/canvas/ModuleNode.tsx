@@ -91,7 +91,7 @@ function isCompatibleTarget(
   if (srcPort.busType !== port.busType) return false;
 
   // ── Peripheral-to-peripheral directional buses (NeoPixel chain / cell → reader) ──
-  const isP2PBus = port.busType === 'NEOPIXEL' || port.busType === 'ADC';
+  const isP2PBus = port.busType === 'NEOPIXEL' || port.busType === 'ADC' || port.busType === 'SOLENOID';
   if (isP2PBus && !srcIsMcu && !thisIsMcu) {
     return (
       (srcPort.direction === 'out' && port.direction === 'in') ||
