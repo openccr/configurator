@@ -49,6 +49,9 @@
 .wireAdc {
   stroke: #e67e22;
 }
+.wireSolenoid {
+  stroke: #c0392b;
+}
 
 .ghost {
   fill: none;

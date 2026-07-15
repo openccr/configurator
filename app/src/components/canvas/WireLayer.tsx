@@ -24,6 +24,7 @@ const WIRE_BUS_CLASS: Record<BusType, string> = {
   NEOPIXEL: styles.wireNeopixel,
   MODBUS: styles.wireModbus,
   ADC: styles.wireAdc,
+  SOLENOID: styles.wireSolenoid,
 };
 
 /** px left of device's left edge where the I2C vertical tap drops */

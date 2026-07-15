@@ -13,6 +13,7 @@ const BUS_CLASS: Record<BusType, string> = {
   NEOPIXEL: styles.busNeopixel,
   MODBUS: styles.busModbus,
   ADC: styles.busAdc,
+  SOLENOID: styles.busSolenoid,
 };
 
 interface PortProps {
