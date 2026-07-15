@@ -36,7 +36,7 @@ const TOOLBAR_GROUPS: ToolbarGroup[] = [
     label: 'Cells',
     types: ['O2_CELL_ANALOG', 'O2_CELL_DIGITAL', 'CO_SENSOR', 'CO2_SENSOR', 'HE_SENSOR'],
   },
-  { label: 'Actuators', types: ['SOLENOID', 'BUZZER'] },
+  { label: 'Actuators', types: ['SOLENOID_DRIVER_1PORT', 'SOLENOID_DRIVER_2PORT', 'SOLENOID_DRIVER_4PORT', 'SOLENOID_VALVE', 'BUZZER'] },
   {
     label: 'Displays',
     types: ['STATUS_LIGHT', 'HUD_3LED', 'HUD_6LED', 'DECO_HUD', 'PPO2_DISPLAY', 'GENERAL_SCREEN'],

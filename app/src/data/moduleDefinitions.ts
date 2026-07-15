@@ -84,6 +84,23 @@ const adcIn = (id: string, label: string): PortDef => ({
   rightSide: true,
 });
 
+const solenoidOut = (id: string, label: string): PortDef => ({
+  id,
+  label,
+  busType: 'SOLENOID',
+  direction: 'out',
+  multiDrop: false,
+  rightSide: true,
+});
+
+const solenoidIn = (): PortDef => ({
+  id: 'SOLENOID_IN',
+  label: 'Solenoid',
+  busType: 'SOLENOID',
+  direction: 'in',
+  multiDrop: false,
+});
+
 // ── Module Definitions ────────────────────────────────────────────────────────
 
 export const MODULE_DEFINITIONS: Record<ModuleType, ModuleDefinition> = {
@@ -249,12 +266,51 @@ export const MODULE_DEFINITIONS: Record<ModuleType, ModuleDefinition> = {
   },
 
   // ── Actuators ────────────────────────────────────────────────────────────────
-  SOLENOID: {
-    type: 'SOLENOID',
-    label: 'Solenoid Driver',
-    description: 'Gas solenoid driver (O₂ or diluent). Single GPIO pin.',
+  SOLENOID_DRIVER_1PORT: {
+    type: 'SOLENOID_DRIVER_1PORT',
+    label: 'Solenoid Driver (1ch)',
+    toolbarLabel: 'Sol. Driver 1ch',
+    description: 'Single-channel gas solenoid driver (O₂ or diluent). One GPIO control pin, one solenoid output.',
     colorGroup: 'actuator',
-    ports: [gpioIn('GPIO')],
+    ports: [gpioIn('GPIO_1', 'GPIO 1'), solenoidOut('SOLENOID_1', 'Solenoid 1')],
+  },
+  SOLENOID_DRIVER_2PORT: {
+    type: 'SOLENOID_DRIVER_2PORT',
+    label: 'Solenoid Driver (2ch)',
+    toolbarLabel: 'Sol. Driver 2ch',
+    description: 'Dual-channel gas solenoid driver. Two GPIO control pins, two solenoid outputs.',
+    colorGroup: 'actuator',
+    ports: [
+      gpioIn('GPIO_1', 'GPIO 1'),
+      solenoidOut('SOLENOID_1', 'Solenoid 1'),
+      gpioIn('GPIO_2', 'GPIO 2'),
+      solenoidOut('SOLENOID_2', 'Solenoid 2'),
+    ],
+  },
+  SOLENOID_DRIVER_4PORT: {
+    type: 'SOLENOID_DRIVER_4PORT',
+    label: 'Solenoid Driver (4ch)',
+    toolbarLabel: 'Sol. Driver 4ch',
+    description: 'Four-channel gas solenoid driver. Four GPIO control pins, four solenoid outputs.',
+    colorGroup: 'actuator',
+    ports: [
+      gpioIn('GPIO_1', 'GPIO 1'),
+      solenoidOut('SOLENOID_1', 'Solenoid 1'),
+      gpioIn('GPIO_2', 'GPIO 2'),
+      solenoidOut('SOLENOID_2', 'Solenoid 2'),
+      gpioIn('GPIO_3', 'GPIO 3'),
+      solenoidOut('SOLENOID_3', 'Solenoid 3'),
+      gpioIn('GPIO_4', 'GPIO 4'),
+      solenoidOut('SOLENOID_4', 'Solenoid 4'),
+    ],
+  },
+  SOLENOID_VALVE: {
+    type: 'SOLENOID_VALVE',
+    label: 'Solenoid Valve',
+    toolbarLabel: 'Sol. Valve',
+    description: 'Physical gas solenoid valve. Connects to a solenoid driver output.',
+    colorGroup: 'actuator',
+    ports: [solenoidIn()],
   },
   BUZZER: {
     type: 'BUZZER',

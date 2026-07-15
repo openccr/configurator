@@ -107,7 +107,7 @@ export const FEATURE_RULES: FeatureRule[] = [
     id: 'CLOSED_LOOP',
     label: 'Closed-Loop Setpoint',
     description: 'Automatic O₂ injection to maintain ppO₂ setpoint',
-    check: (m, w) => hasMcu(m) && totalCellCount(m, w) >= 1 && connectedAny(m, w, 'SOLENOID'),
+    check: (m, w) => hasMcu(m) && totalCellCount(m, w) >= 1 && connectedAny(m, w, 'SOLENOID_DRIVER_1PORT', 'SOLENOID_DRIVER_2PORT', 'SOLENOID_DRIVER_4PORT'),
     missingHint: (m, w) => {
       if (!hasMcu(m)) return 'needs: MCU on canvas';
       if (totalCellCount(m, w) < 1) return 'needs: O₂ cell wired to MCU chain';
