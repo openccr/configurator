@@ -8,8 +8,42 @@ import { CanvasState, ModuleType, Wire, DEFAULT_MCU_BUS_SLOTS } from '../types';
 
 const DEFAULT_STATE: CanvasState = { modules: [], wires: [] };
 
+/**
+ * Migrate canvas state from older schemas.
+ * v1→v2: 'SOLENOID' type renamed to 'SOLENOID_DRIVER_1PORT'; port 'GPIO' → 'GPIO_1'.
+ */
+function migrateCanvasState(raw: CanvasState): CanvasState {
+  const modules = raw.modules.map((m) => {
+    if ((m.type as string) === 'SOLENOID') {
+      return { ...m, type: 'SOLENOID_DRIVER_1PORT' as ModuleType };
+    }
+    return m;
+  });
+
+  const wires = raw.wires.map((w) => {
+    const fromMod = modules.find((m) => m.id === w.fromModuleId);
+    const toMod = modules.find((m) => m.id === w.toModuleId);
+    return {
+      ...w,
+      fromPortId:
+        fromMod?.type === 'SOLENOID_DRIVER_1PORT' && w.fromPortId === 'GPIO'
+          ? 'GPIO_1'
+          : w.fromPortId,
+      toPortId:
+        toMod?.type === 'SOLENOID_DRIVER_1PORT' && w.toPortId === 'GPIO'
+          ? 'GPIO_1'
+          : w.toPortId,
+    };
+  });
+
+  return { modules, wires };
+}
+
 export function useCanvasState() {
   const [state, setState] = useStorage<CanvasState>('canvas', DEFAULT_STATE);
+  const migratedState = migrateCanvasState(state);
+  const stateToUse =
+    JSON.stringify(migratedState) !== JSON.stringify(state) ? migratedState : state;
 
   const addModule = useCallback(
     (type: ModuleType, x: number, y: number) => {
@@ -123,7 +157,7 @@ export function useCanvasState() {
   );
 
   return {
-    state,
+    state: stateToUse,
     addModule,
     moveModule,
     removeModule,
