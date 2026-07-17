@@ -76,7 +76,7 @@ interface WireDragState {
 Local React state, not persisted.
 
 **useFeatures(state)**
-`useMemo` over `state.modules` and `state.wires`. Re-evaluates all 24 feature rules. Returns `{rule: FeatureRule, unlocked: boolean, hint: string}[]`.
+`useMemo` over `state.modules` and `state.wires`. Re-evaluates all 21 feature rules. Returns `{rule: FeatureRule, unlocked: boolean, hint: string}[]`.
 
 ## localStorage Keys
 

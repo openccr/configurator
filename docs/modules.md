@@ -80,6 +80,8 @@ interface ModuleDefinition {
 | SOLENOID_VALVE | solenoidIn() |
 | BUZZER | gpioIn GPIO_1 + gpioIn GPIO_2 |
 
+Note: SOLENOID_VALVE is a passive end-node — excluded from CLOSED_LOOP feature check. Only the driver types (1/2/4PORT) count.
+
 ### Displays
 | Type | Ports |
 |------|-------|

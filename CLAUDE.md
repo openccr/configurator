@@ -14,6 +14,7 @@ Read before writing code. Optimized for AI agent use.
 | [docs/canvas.md](docs/canvas.md) | Touching pan/zoom, drag-drop, port positioning, coordinate transforms |
 | [docs/features.md](docs/features.md) | Adding/modifying feature unlock rules |
 | [docs/state.md](docs/state.md) | Touching state persistence, migration, or hook interfaces |
+| [docs/components.md](docs/components.md) | App composition, TopBar, BOMPanel, toolbar groups, UI components |
 | [docs/visual-identity.md](docs/visual-identity.md) | Writing any UI code (colours, typography, spacing) |
 
 ## Visual Identity

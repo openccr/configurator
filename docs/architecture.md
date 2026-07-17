@@ -17,7 +17,7 @@ app/src/
 ├── types/index.ts          Core types: BusType, ModuleType, PortDef, PlacedModule, Wire, CanvasState
 ├── data/
 │   ├── moduleDefinitions.ts  Catalog of all module types → ports, labels, colorGroup
-│   └── featureRules.ts       24 feature unlock rules + connectivity BFS helpers
+│   └── featureRules.ts       21 feature unlock rules + connectivity BFS helpers
 ├── canvas/portUtils.ts     MCU port generation, port Y-positions, bezier wire paths, layout constants
 ├── hooks/
 │   ├── useCanvasState.ts   State management (modules+wires), localStorage, migration
@@ -64,6 +64,37 @@ moduleDefinitions.ts ──► ModuleToolbar (drag source)
 - `implicit: true` ports are never rendered or wired; they only count toward MCU GPIO usage.
 - MCU is the only module with dynamic ports; all others are static from their `ModuleDefinition`.
 - Wires store `{fromModuleId, fromPortId, toModuleId, toPortId}`; no bus type stored (derived at render time from module definition).
+
+## Build & Dev
+
+```bash
+cd app
+npm run dev          # Vite dev server at localhost:5173
+npm run build        # TypeScript check + Vite bundle → dist/
+npm run lint         # ESLint strict (zero warnings)
+npm run format:check # Prettier check
+npm run preview      # Local preview of built dist/
+```
+
+Vite config: `base: './'` — all output paths are relative (required for GitHub Pages and `openccr.org/configurator` hosting).
+
+GitHub Actions builds and deploys to Pages on push to main.
+
+## App Composition
+
+`App.tsx` wires all hooks and panels together:
+
+```
+App
+├── CookieBanner (overlay until accepted, checks openccr.cookieConsent)
+└── AppLayout (3-panel CSS grid)
+    ├── topbar: TopBar (export/import JSON)
+    ├── canvas: Canvas + ModuleToolbar (floating draggable)
+    ├── features: FeaturesPanel (21 unlock statuses)
+    └── bom: BOMPanel (module count table)
+```
+
+All canvas mutations flow through `useCanvasState`. `useFeatures(state)` and `useWireDrag()` are read-only consumers that re-derive from state.
 
 ## Adding a New Module Type
 
